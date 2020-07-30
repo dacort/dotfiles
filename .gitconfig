@@ -1,0 +1,19 @@
+[include]
+        path = ~/.gitconfig.local
+
+[github]
+        user = dacort
+
+# shortcuts
+[alias]
+    co = checkout
+
+# vscode diffing
+[merge]
+    tool = vscode
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
+[diff]
+    tool = vscode-diff
+[difftool "vscode-diff"]
+    cmd = code --wait --diff $LOCAL $REMOTE
