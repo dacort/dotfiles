@@ -1,9 +1,9 @@
 module.exports = {
-    defaultBrowser: "Google Chrome",
+    defaultBrowser: "Safari",
     handlers: [
         {
             // ~Brave~ Firefox is my Metabae browser
-            match: finicky.matchHostnames(["metabase.zendesk.com", "hire.lever.co", "docs.google.com"]),
+            match: finicky.matchHostnames(["metabase.zendesk.com", "hire.lever.co", "docs.google.com", "stats.metabase.com", "dashboard.cypress.io", /(.+\.)?metabase.com/]),
             browser: "Firefox"
         },
         {

@@ -6,7 +6,9 @@
 
 # shortcuts
 [alias]
-    co = checkout
+    co   = checkout
+    # Undo your last commit, but don't throw away your changes
+    undo = reset --soft HEAD^
 
 # vscode diffing
 [merge]
@@ -17,3 +19,5 @@
     tool = vscode-diff
 [difftool "vscode-diff"]
     cmd = code --wait --diff $LOCAL $REMOTE
+[pull]
+	rebase = false

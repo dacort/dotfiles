@@ -40,6 +40,16 @@ alias ls="ls -FG"
 export LSCOLORS="Gxfxcxdxbxegedabagacab"
 
 
+## HELPER FUNCTIONS ##
+function listTags() {
+    local repo=${1}
+    local size=${2:-25}
+    local page=${3:-1}
+    [ -z "${repo}" ] && echo "Usage: listTags <repoName> [size] [pageIndex]" 1>&2 && return 1
+    curl "https://hub.docker.com/v2/repositories/${repo}/tags?page=${page}&page_size=${size}" 2>/dev/null | jq -r '.results[].name' | sort
+}
+
+
 ## GIT SHORTCUTS ##
 
 alias gs='git status -sb -uno'
@@ -48,12 +58,24 @@ alias gp='git push origin HEAD'
 alias gpu='git push -u'
 
 
-## VIRTUAL ENVIRONMENTS ##
+## DEV ENVIRONMENTS ##
 
 # nodenv init
 if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
+
+# rbenv init
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+# flutter
+export PATH="$PATH:$HOME/Downloads/flutter/bin"
 
 
 ## ALIASES ##
 
 alias config='/usr/bin/git --git-dir='${HOME}'/.cfg/ --work-tree='${HOME}
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/dacort/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dacort/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/dacort/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/dacort/google-cloud-sdk/completion.zsh.inc'; fi
