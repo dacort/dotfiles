@@ -8,3 +8,10 @@ I've tried a few variations of dotfiles in the past, but I never really liked ha
 So in hunting around for solutions (and trying `yadm` as well) I came across the [git bare repo](https://www.atlassian.com/git/tutorials/dotfiles) approach.
 
 I quite liked it, so this is my attempt at managing my dotfiles across 1-n machines where currently `n=2`.
+
+## Bootstrapping
+
+```shell
+git clone --bare git@github.com:dacort/dotfiles.git .cfg
+git --git-dir=$HOME/.cfg --work-tree=$HOME checkout -f
+```
