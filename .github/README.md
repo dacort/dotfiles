@@ -11,7 +11,16 @@ I quite liked it, so this is my attempt at managing my dotfiles across 1-n machi
 
 ## Bootstrapping
 
+- Clone the repo
+
 ```shell
 git clone --bare git@github.com:dacort/dotfiles.git .cfg
 git --git-dir=$HOME/.cfg --work-tree=$HOME checkout -f
+```
+
+- Update your shell and do not show untracked files
+
+```shell
+source ~/.zshrc
+git config --local status.showUntrackedFiles no
 ```
