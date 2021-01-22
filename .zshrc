@@ -74,6 +74,16 @@ export PATH="$PATH:$HOME/Downloads/flutter/bin"
 
 alias config='/usr/bin/git --git-dir='${HOME}'/.cfg/ --work-tree='${HOME}
 
+# My muscle memory does not appreciate _not_ typing git
+# Thank you https://gpanders.com/blog/managing-dotfiles-with-git/
+git() {
+	if [ "$PWD" = "$HOME" ]; then
+		command git --git-dir="$HOME/.cfg" --work-tree="$HOME" "$@"
+	else
+		command git "$@"
+	fi
+}
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/dacort/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dacort/google-cloud-sdk/path.zsh.inc'; fi
 
