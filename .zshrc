@@ -16,15 +16,6 @@ setopt CORRECT_ALL
 autoload -Uz compinit && compinit
 
 
-## ZSH PLUGINS
-
-# Help my bad memory
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# Lend me a hand as I type
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-
 ## COMMANDS ##
 
 # Don't clear on pager quit
@@ -49,9 +40,22 @@ function listTags() {
     curl "https://hub.docker.com/v2/repositories/${repo}/tags?page=${page}&page_size=${size}" 2>/dev/null | jq -r '.results[].name' | sort
 }
 
+# Only sources the file if it exists
+function safeSource() {
+    if [ -f "${1}" ]; then . "${1}"; fi
+}
+
+
+## ZSH PLUGINS
+
+# Help my bad memory
+safeSource /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Lend me a hand as I type
+safeSource /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 
 ## GIT SHORTCUTS ##
-
 alias gs='git status -sb -uno'
 alias gd='git diff'
 alias gp='git push origin HEAD'
@@ -85,7 +89,7 @@ git() {
 }
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/dacort/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dacort/google-cloud-sdk/path.zsh.inc'; fi
+safeSource '/Users/dacort/google-cloud-sdk/path.zsh.inc'
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/dacort/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/dacort/google-cloud-sdk/completion.zsh.inc'; fi
+safeSource '/Users/dacort/google-cloud-sdk/completion.zsh.inc'
