@@ -46,6 +46,10 @@ function safeSource() {
 }
 
 
+## Additional source files
+safeSource ~/.zsh/sekrets.env
+
+
 ## ZSH PLUGINS
 
 # Help my bad memory
