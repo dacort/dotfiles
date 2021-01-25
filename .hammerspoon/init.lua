@@ -78,3 +78,8 @@ end)
 -- This would be pretty cool too!
 -- osascript -e 'tell application "Google Chrome" to set active tab index of first window to 3'
 -- https://superuser.com/questions/263198/switch-between-google-chrome-tabs-using-applescript
+
+-- Another nice repo of hammerspoon examples: https://github.com/drn/dots/tree/master/hammerspoon
+
+-- Begin splitting things out into modules
+require("headphones")
