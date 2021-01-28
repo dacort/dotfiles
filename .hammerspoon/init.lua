@@ -41,7 +41,7 @@ units = {
     botleft70 = {x = 0.00, y = 0.50, w = 0.70, h = 0.50},
     right70top80 = {x = 0.70, y = 0.00, w = 0.30, h = 0.80},
     maximum = {x = 0.00, y = 0.00, w = 1.00, h = 1.00},
-    center = {x = 0.20, y = 0.10, w = 0.60, h = 0.80}
+    center = {x = 0.05, y = 0.05, w = 0.90, h = 0.90}
 }
 
 --- Multiple Monitor Actions ---
