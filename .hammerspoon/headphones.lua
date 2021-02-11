@@ -15,7 +15,7 @@ function audiowatch(arg)
         if headphonesConnected ~= newState then
             if newState == true then
                 headphonesConnected = true
-                hs.alert.show("🎧🎵")
+                hs.alert.show("🎧🎵", {fillColor = {blue = 1}})
             end
             headphonesConnected = newState
         end
