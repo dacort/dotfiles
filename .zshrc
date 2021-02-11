@@ -77,6 +77,9 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 # flutter
 export PATH="$PATH:$HOME/Downloads/flutter/bin"
 
+# Add getopt path - was for building Airflow with breeze
+export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
+
 
 ## ALIASES ##
 
@@ -91,6 +94,13 @@ git() {
 		command git "$@"
 	fi
 }
+
+# Filter out unnecessary data from aws commands
+jaws() { aws "$@" | jq 'del(.virtualClusters[] | .arn, .tags)' }
+# I tried several other variations including the basic compdef jaws=aws
+# but none of them worked unless I typed it in the terminal. So...
+# (shrug) https://stackoverflow.com/a/4221640
+compdef '_dispatch aws aws' jaws
 
 # The next line updates PATH for the Google Cloud SDK.
 safeSource '/Users/dacort/google-cloud-sdk/path.zsh.inc'
