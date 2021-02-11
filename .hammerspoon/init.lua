@@ -41,7 +41,9 @@ units = {
     botleft70 = {x = 0.00, y = 0.50, w = 0.70, h = 0.50},
     right70top80 = {x = 0.70, y = 0.00, w = 0.30, h = 0.80},
     maximum = {x = 0.00, y = 0.00, w = 1.00, h = 1.00},
-    center = {x = 0.05, y = 0.05, w = 0.90, h = 0.90}
+    center = {x = 0.05, y = 0.05, w = 0.90, h = 0.90},
+    centerLeft = {x = 0.05, y = 0.05, w=0.45, h = 0.90},
+    centerRight = {x = 0.5, y = 0.05, w=0.45, h = 0.90}
 }
 
 --- Multiple Monitor Actions ---
@@ -53,6 +55,7 @@ hs.hotkey.bind(monitor_mash, "Right", function() sizeup.send_window_next_monitor
 
 -- Window actions
 window_mash = {"ctrl", "alt"}
+center_mash = {"ctrl", "alt", "cmd"}
 
 -- We like to send windows half left and half right
 hs.hotkey.bind(window_mash, "Left", function() hs.window.focusedWindow():move(units.left50, nil, true) end)
@@ -61,6 +64,10 @@ hs.hotkey.bind(window_mash, "Right", function() hs.window.focusedWindow():move(u
 -- And then sometimes we want either "full screen" or centered with a border
 hs.hotkey.bind(window_mash, "c", function() hs.window.focusedWindow():move(units.center, nil, true) end)
 hs.hotkey.bind(window_mash, "f", function() hs.window.focusedWindow():move(units.maximum, nil, true) end)
+
+-- Finally, I use this with streaming when I need to go "center-left" or "center-right"
+hs.hotkey.bind(center_mash, "Left", function() hs.window.focusedWindow():move(units.centerLeft, nil, true) end)
+hs.hotkey.bind(center_mash, "Right", function() hs.window.focusedWindow():move(units.centerRight, nil, true) end)
 
 -- Register browser tab typist: Type URL of current tab of running browser in markdown format. i.e. [title](link)
 -- This is pretty cool, but I've never really used it...
