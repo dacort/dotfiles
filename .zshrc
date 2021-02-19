@@ -58,7 +58,7 @@ function envSource() {
 
 ## Additional source files
 envSource ~/.zsh/sekrets.env
-
+safeSource ~/.zsh/dotenv.plugin.zsh
 
 ## ZSH PLUGINS
 
