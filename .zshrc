@@ -23,6 +23,9 @@ autoload -Uz compinit && compinit
 # Show terminal colors
 export LESS="-XFR"
 
+# Sometimes we like color in our pager
+jql() { jq -C "$@" | less }
+
 # Show trailing slashes
 # Enable color by default
 alias ls="ls -FG"
@@ -45,9 +48,16 @@ function safeSource() {
     if [ -f "${1}" ]; then . "${1}"; fi
 }
 
+# Export env files
+function envSource() {
+    set -a
+    . "$1"
+    set +a
+}
+
 
 ## Additional source files
-safeSource ~/.zsh/sekrets.env
+envSource ~/.zsh/sekrets.env
 
 
 ## ZSH PLUGINS
@@ -79,6 +89,9 @@ export PATH="$PATH:$HOME/Downloads/flutter/bin"
 
 # Add getopt path - was for building Airflow with breeze
 export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
+
+# go binaries
+export PATH=$PATH:$HOME/go/bin
 
 
 ## ALIASES ##
