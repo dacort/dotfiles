@@ -1,5 +1,5 @@
 module.exports = {
-    defaultBrowser: "Safari",
+    defaultBrowser: "Google Chrome",
     handlers: [
         {
             // ~Brave~ Firefox is my Metabae browser
