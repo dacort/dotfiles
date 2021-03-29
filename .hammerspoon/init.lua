@@ -15,6 +15,22 @@ function sizeup.send_window_next_monitor()
     win:moveToScreen(nextScreen)
 end
 
+function sizeup.resize_window()
+    -- Determine which screens we have available
+    local bigMon = hs.screen 'Dell U3419W'
+    local lappie = hs.screen 'Built%-in'
+    local height = lappie:currentMode().h
+    local width = lappie:currentMode().w
+    if (bigMon ~= nil) then
+        height = bigMon:currentMode().h
+        width = bigMon:currentMode().w
+    end
+
+    local win = hs.window.focusedWindow()
+    local coords = win:screen():frame()
+    win:setFrame({coords.x + 760, coords.y + 180, 1920, 1080})
+end
+
 -- Reference: https://github.com/derekwyatt/dotfiles/blob/master/hammerspoon-init.lua
 -- These are just convenient names for layouts. We can use numbers
 -- between 0 and 1 for defining 'percentages' of screen real estate
@@ -42,8 +58,9 @@ units = {
     right70top80 = {x = 0.70, y = 0.00, w = 0.30, h = 0.80},
     maximum = {x = 0.00, y = 0.00, w = 1.00, h = 1.00},
     center = {x = 0.05, y = 0.05, w = 0.90, h = 0.90},
-    centerLeft = {x = 0.05, y = 0.05, w=0.45, h = 0.90},
-    centerRight = {x = 0.5, y = 0.05, w=0.45, h = 0.90}
+    centerLeft = {x = 0.05, y = 0.05, w = 0.45, h = 0.90},
+    centerRight = {x = 0.5, y = 0.05, w = 0.45, h = 0.90},
+    center1080 = {x = 0.220, y = 0.1, w = 0.56, h = 0.75}
 }
 
 --- Multiple Monitor Actions ---
@@ -68,6 +85,8 @@ hs.hotkey.bind(window_mash, "f", function() hs.window.focusedWindow():move(units
 -- Finally, I use this with streaming when I need to go "center-left" or "center-right"
 hs.hotkey.bind(center_mash, "Left", function() hs.window.focusedWindow():move(units.centerLeft, nil, true) end)
 hs.hotkey.bind(center_mash, "Right", function() hs.window.focusedWindow():move(units.centerRight, nil, true) end)
+-- hs.hotkey.bind(center_mash, "c", function() hs.window.focusedWindow():move(units.center1080, nil, true) end)
+hs.hotkey.bind(center_mash, "c", function() sizeup.resize_window() end)
 
 -- Register browser tab typist: Type URL of current tab of running browser in markdown format. i.e. [title](link)
 -- This is pretty cool, but I've never really used it...
