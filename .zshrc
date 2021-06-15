@@ -120,3 +120,4 @@ safeSource '/Users/dacort/google-cloud-sdk/path.zsh.inc'
 
 # The next line enables shell command completion for gcloud.
 safeSource '/Users/dacort/google-cloud-sdk/completion.zsh.inc'
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
