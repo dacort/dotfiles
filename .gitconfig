@@ -21,3 +21,5 @@
     cmd = code --wait --diff $LOCAL $REMOTE
 [pull]
 	rebase = false
+[init]
+	defaultBranch = main
