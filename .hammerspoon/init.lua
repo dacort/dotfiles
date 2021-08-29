@@ -17,18 +17,22 @@ end
 
 function sizeup.resize_window()
     -- Determine which screens we have available
-    local bigMon = hs.screen 'Dell U3419W'
+    local bigMon = (hs.screen 'Dell U3419W' or hs.screen 'BenQ EX3501R')
     local lappie = hs.screen 'Built%-in'
     local height = lappie:currentMode().h
     local width = lappie:currentMode().w
+
+    local win = hs.window.focusedWindow()
+
     if (bigMon ~= nil) then
         height = bigMon:currentMode().h
         width = bigMon:currentMode().w
+        local coords = win:screen():frame()
+        win:setFrame({coords.x + 760, coords.y + 180, 1920, 1080})
+    else
+        win:setFrame({0, 0, width, width / ( 1920 / 1080 )})
     end
-
-    local win = hs.window.focusedWindow()
-    local coords = win:screen():frame()
-    win:setFrame({coords.x + 760, coords.y + 180, 1920, 1080})
+    
 end
 
 -- Reference: https://github.com/derekwyatt/dotfiles/blob/master/hammerspoon-init.lua
