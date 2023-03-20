@@ -5,14 +5,14 @@ function sizeup.send_window_prev_monitor()
     hs.alert.show("Prev Monitor")
     local win = hs.window.focusedWindow()
     local nextScreen = win:screen():previous()
-    win:moveToScreen(nextScreen)
+    win:moveToScreen(nextScreen, true, true)
 end
 
 function sizeup.send_window_next_monitor()
     hs.alert.show("Next Monitor")
     local win = hs.window.focusedWindow()
     local nextScreen = win:screen():next()
-    win:moveToScreen(nextScreen)
+    win:moveToScreen(nextScreen, true, true)
 end
 
 function sizeup.resize_window()
@@ -30,9 +30,9 @@ function sizeup.resize_window()
         local coords = win:screen():frame()
         win:setFrame({coords.x + 760, coords.y + 180, 1920, 1080})
     else
-        win:setFrame({0, 0, width, width / ( 1920 / 1080 )})
+        win:setFrame({0, 0, width, width / (1920 / 1080)})
     end
-    
+
 end
 
 -- Reference: https://github.com/derekwyatt/dotfiles/blob/master/hammerspoon-init.lua
