@@ -1,6 +1,13 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Set Spaceship ZSH as a prompt
-autoload -U promptinit; promptinit
-prompt spaceship
+#autoload -U promptinit; promptinit
+#prompt spaceship
 
 ## ZSH SPECIFIC ## 
 
@@ -18,16 +25,16 @@ autoload -Uz compinit && compinit
 
 ## COMMANDS ##
 
-# Don't clear on pager quit
-# Quit immmediately if we can
-# Show terminal colors
+# -X - Don't clear on pager quit
+# -F - Quit immmediately if we can
+# -R - Show terminal colors
 export LESS="-XFR"
 
 # Sometimes we like color in our pager
 jql() { jq -C "$@" | less }
 
-# Show trailing slashes
-# Enable color by default
+# -F - Show trailing slashes
+# -G - Enable color by default
 alias ls="ls -FG"
 
 # Make the ls colors a little better
@@ -77,21 +84,28 @@ alias gpu='git push -u'
 
 
 ## DEV ENVIRONMENTS ##
+# Ideally, replace all this with asdf
 
 # nodenv init
-if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
+#if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
 
 # rbenv init
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+#if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+# TODO
+# export PATH="$GOROOT/bin:$PATH"
+# export PATH="$PATH:$GOPATH/bin"
+
+# goenv init
+#if which goenv > /dev/null; then eval "$(goenv init -)"; fi
 
 # flutter
 export PATH="$PATH:$HOME/Downloads/flutter/bin"
 
 # Add getopt path - was for building Airflow with breeze
-export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
+#export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
 
 # go binaries
-export PATH=$PATH:$HOME/go/bin
+#export PATH=$PATH:$HOME/go/bin
 
 
 ## ALIASES ##
@@ -116,8 +130,19 @@ jaws() { aws "$@" | jq 'del(.virtualClusters[] | .arn, .tags)' }
 compdef '_dispatch aws aws' jaws
 
 # The next line updates PATH for the Google Cloud SDK.
-safeSource '/Users/dacort/google-cloud-sdk/path.zsh.inc'
+safeSource '$HOME/google-cloud-sdk/path.zsh.inc'
 
 # The next line enables shell command completion for gcloud.
-safeSource '/Users/dacort/google-cloud-sdk/completion.zsh.inc'
+safeSource '$HOME/google-cloud-sdk/completion.zsh.inc'
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+
+# Created by `pipx` on 2021-08-02 19:01:02
+export PATH="$PATH:$HOME/.local/bin"
+
+# Don't take 20 minutes to install a single package
+export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=true
+
+source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
