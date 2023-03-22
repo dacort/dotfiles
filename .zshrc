@@ -9,6 +9,9 @@ fi
 #autoload -U promptinit; promptinit
 #prompt spaceship
 
+# Local tools (like poetry)
+export PATH="$HOME/.local/bin:$PATH"
+
 ## ZSH SPECIFIC ## 
 
 # Easily cd into src directories
@@ -64,7 +67,7 @@ function envSource() {
 
 
 ## Additional source files
-envSource ~/.zsh/sekrets.env
+#envSource ~/.zsh/sekrets.env
 safeSource ~/.zsh/dotenv.plugin.zsh
 
 ## ZSH PLUGINS
@@ -84,28 +87,12 @@ alias gpu='git push -u'
 
 
 ## DEV ENVIRONMENTS ##
-# Ideally, replace all this with asdf
 
-# nodenv init
-#if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
-
-# rbenv init
-#if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-# TODO
-# export PATH="$GOROOT/bin:$PATH"
-# export PATH="$PATH:$GOPATH/bin"
-
-# goenv init
-#if which goenv > /dev/null; then eval "$(goenv init -)"; fi
+# Better tool management
+. /usr/local/opt/asdf/libexec/asdf.sh
 
 # flutter
 export PATH="$PATH:$HOME/Downloads/flutter/bin"
-
-# Add getopt path - was for building Airflow with breeze
-#export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
-
-# go binaries
-#export PATH=$PATH:$HOME/go/bin
 
 
 ## ALIASES ##
