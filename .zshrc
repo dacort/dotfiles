@@ -1,9 +1,15 @@
+(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv export zsh)"
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
+# Add the hook for direnv, along with the initialization above
+(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv hook zsh)"
+
 
 # Set Spaceship ZSH as a prompt
 #autoload -U promptinit; promptinit
@@ -68,7 +74,7 @@ function envSource() {
 
 ## Additional source files
 #envSource ~/.zsh/sekrets.env
-safeSource ~/.zsh/dotenv.plugin.zsh
+#safeSource ~/.zsh/dotenv.plugin.zsh
 
 ## ZSH PLUGINS
 
