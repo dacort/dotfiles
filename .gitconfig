@@ -17,6 +17,7 @@
     cmd = code --wait $MERGED
 [diff]
     tool = vscode-diff
+    wsErrorHighlight = all
 [difftool "vscode-diff"]
     cmd = code --wait --diff $LOCAL $REMOTE
 [pull]
