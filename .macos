@@ -18,12 +18,18 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Single tap to click
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 
 # Enable three-finger drag
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -int 1
 
 # Set a blazingly fast keyboard repeat rate
 defaults write NSGlobalDomain KeyRepeat -int 1
+
+# Dark mode
+# I tried to set this, but ran into an issue. Had to disable Aqua as mentioned:
+# https://discussions.apple.com/thread/254074961
+defaults write -g AppleInterfaceStyle Dark
 
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
@@ -37,6 +43,44 @@ defaults write com.apple.dock static-only -bool true
 
 # Automatically hide and show the Dock
 defaults write com.apple.dock autohide -bool true
+
+##############################################################################
+# Prettify the Terminal
+##############################################################################
+
+curl -O https://github.com/nordtheme/terminal-app/raw/develop/src/xml/Nord.terminal && \
+  open Nord.terminal && \
+  rm Nord.termal &&  \
+  defaults write com.apple.terminal "Default Window Settings" -string "Nord" && \
+  defaults write com.apple.Terminal "Startup Window Settings" -string "Nord"
+
+cd ~/Library/Fonts && {
+    curl -L "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf" -o "MesloLGS NF Regular.ttf"
+    curl -L "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf" -o "MesloLGS NF Bold.ttf"
+    curl -L "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf" -o "MesloLGS NF Italic.ttf"
+    curl -L "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf" -o "MesloLGS NF Bold Italic.ttf"
+    cd -; }
+
+osascript -e 'tell application "Terminal"
+        set font name of settings set "Nord" to "MesloLGS NF"
+end tell'
+
+##############################################################################
+# The Basics
+##############################################################################
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install \
+  1password \
+  arq \
+  asdf \
+  awscli \
+  colima \
+  docker \
+  qbserve \
+  raycast \
+  spotify \
+  zsh-autosuggestions \
+  zsh-syntax-highlighting \
 
 ###############################################################################
 # Kill affected applications                                                  #

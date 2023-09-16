@@ -79,10 +79,10 @@ function envSource() {
 ## ZSH PLUGINS
 
 # Help my bad memory
-safeSource /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+safeSource /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Lend me a hand as I type
-safeSource /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+safeSource /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
 ## GIT SHORTCUTS ##
@@ -95,7 +95,7 @@ alias gpu='git push -u'
 ## DEV ENVIRONMENTS ##
 
 # Better tool management
-. /usr/local/opt/asdf/libexec/asdf.sh
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 # flutter
 export PATH="$PATH:$HOME/Downloads/flutter/bin"
@@ -135,7 +135,7 @@ export PATH="$PATH:$HOME/.local/bin"
 # Don't take 20 minutes to install a single package
 export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=true
 
-source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
