@@ -55,10 +55,10 @@ curl -O https://github.com/nordtheme/terminal-app/raw/develop/src/xml/Nord.termi
   defaults write com.apple.Terminal "Startup Window Settings" -string "Nord"
 
 cd ~/Library/Fonts && {
-    curl -L "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf" -o "MesloLGS NF Regular.ttf"
-    curl -L "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf" -o "MesloLGS NF Bold.ttf"
-    curl -L "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf" -o "MesloLGS NF Italic.ttf"
-    curl -L "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf" -o "MesloLGS NF Bold Italic.ttf"
+    curl -sL "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf" -o "MesloLGS NF Regular.ttf"
+    curl -sL "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf" -o "MesloLGS NF Bold.ttf"
+    curl -sL "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf" -o "MesloLGS NF Italic.ttf"
+    curl -sL "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf" -o "MesloLGS NF Bold Italic.ttf"
     cd -; }
 
 osascript -e 'tell application "Terminal"
@@ -76,11 +76,24 @@ brew install \
   awscli \
   colima \
   docker \
+  docker-buildx \
   qbserve \
   raycast \
   spotify \
   zsh-autosuggestions \
   zsh-syntax-highlighting \
+
+# Configure buildx
+mkdir -p ~/.docker/cli-plugins
+ln -sfn /opt/homebrew/opt/docker-buildx/bin/docker-buildx ~/.docker/cli-plugins/docker-buildx
+
+
+# AWS Session Manager plugin
+curl -s "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/mac_arm64/session-manager-plugin.pkg" -o "session-manager-plugin.pkg" && \
+  sudo installer -pkg session-manager-plugin.pkg -target / && \
+  sudo ln -s /usr/local/sessionmanagerplugin/bin/session-manager-plugin /usr/local/bin/session-manager-plugin && \
+  rm session-manager-plugin.pkg
+
 
 ###############################################################################
 # Kill affected applications                                                  #
