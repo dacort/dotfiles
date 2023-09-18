@@ -29,6 +29,9 @@ setopt CORRECT
 setopt CORRECT_ALL
 
 # Command completion
+if type brew &>/dev/null; then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
 autoload -Uz compinit && compinit
 
 
