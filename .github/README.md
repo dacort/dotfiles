@@ -11,10 +11,10 @@ I quite liked it, so this is my attempt at managing my dotfiles across 1-n machi
 
 ## Bootstrapping
 
-- Clone the repo
+- Clone the repo (without auth)
 
 ```shell
-git clone --bare git@github.com:dacort/dotfiles.git .cfg
+git clone --bare https://github.com/dacort/dotfiles.git .cfg
 git --git-dir=$HOME/.cfg --work-tree=$HOME checkout -f
 ```
 
@@ -23,4 +23,16 @@ git --git-dir=$HOME/.cfg --work-tree=$HOME checkout -f
 ```shell
 source ~/.zshrc
 git config --local status.showUntrackedFiles no
+```
+
+- Run the macos installation script
+
+```shell
+./macos
+```
+
+- After creating/adding a new SSH key to GH, switch the origin and push any changes
+
+```shell
+git remote set-url origin git@github.com:dacort/dotfiles.git
 ```
