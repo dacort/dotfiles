@@ -118,12 +118,24 @@ git() {
 	fi
 }
 
+# When I run grep is VS Code, I want to output line numbers
+grep() {
+	if [ "$TERM_PROGRAM" = "vscode" ]; then
+		command grep -n "$@"
+	else
+		command grep "$@"
+	fi
+}
+
 # Filter out unnecessary data from aws commands
 jaws() { aws "$@" | jq 'del(.virtualClusters[] | .arn, .tags)' }
 # I tried several other variations including the basic compdef jaws=aws
 # but none of them worked unless I typed it in the terminal. So...
 # (shrug) https://stackoverflow.com/a/4221640
 compdef '_dispatch aws aws' jaws
+
+# Make creating virtualenvs easier
+alias mkvenv='python3 -m venv .venv && source .venv/bin/activate'
 
 # The next line updates PATH for the Google Cloud SDK.
 safeSource '$HOME/google-cloud-sdk/path.zsh.inc'
