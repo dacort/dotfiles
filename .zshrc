@@ -31,6 +31,7 @@ setopt CORRECT_ALL
 # Command completion
 if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+  BREW_PATH="$(brew --prefix)"
 fi
 autoload -Uz compinit && compinit
 
@@ -82,10 +83,10 @@ function envSource() {
 ## ZSH PLUGINS
 
 # Help my bad memory
-safeSource /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+safeSource ${BREW_PATH}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Lend me a hand as I type
-safeSource /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+safeSource ${BREW_PATH}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
 ## GIT SHORTCUTS ##
@@ -98,7 +99,7 @@ alias gpu='git push -u'
 ## DEV ENVIRONMENTS ##
 
 # Better tool management
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+safeSource ${BREW_PATH}/opt/asdf/libexec/asdf.sh
 
 # flutter
 export PATH="$PATH:$HOME/Downloads/flutter/bin"
@@ -142,7 +143,6 @@ safeSource '$HOME/google-cloud-sdk/path.zsh.inc'
 
 # The next line enables shell command completion for gcloud.
 safeSource '$HOME/google-cloud-sdk/completion.zsh.inc'
-export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
 # Created by `pipx` on 2021-08-02 19:01:02
 export PATH="$PATH:$HOME/.local/bin"
@@ -150,7 +150,8 @@ export PATH="$PATH:$HOME/.local/bin"
 # Don't take 20 minutes to install a single package
 export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=true
 
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+# Power up my shell
+safeSource ${BREW_PATH}/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
