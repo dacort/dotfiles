@@ -57,6 +57,11 @@ alias ls="ls -FG"
 # Make the ls colors a little better
 export LSCOLORS="Gxfxcxdxbxegedabagacab"
 
+# mkdir && touch
+mkdirtouch() {
+    mkdir -p $(dirname $@) && touch $@
+}
+
 
 ## HELPER FUNCTIONS ##
 function listTags() {
