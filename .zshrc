@@ -35,6 +35,10 @@ if type brew &>/dev/null; then
 fi
 autoload -Uz compinit && compinit
 
+# I am k8s now
+if type kubectl &>/dev/null; then
+  source <(kubectl completion zsh)
+fi
 
 ## COMMANDS ##
 
@@ -94,6 +98,7 @@ alias gs='git status -sb -uno'
 alias gd='git diff'
 alias gp='git push origin HEAD'
 alias gpu='git push -u'
+alias grm='git branch --merged | command grep -Ev "(^\*|^\+|master|main|dev)" | xargs --no-run-if-empty git branch -d'
 
 
 ## DEV ENVIRONMENTS ##
@@ -103,6 +108,21 @@ safeSource ${BREW_PATH}/opt/asdf/libexec/asdf.sh
 
 # flutter
 export PATH="$PATH:$HOME/Downloads/flutter/bin"
+
+# Oh no, more tool management
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# env env env env
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+# JAVA env java env Java
+alias j17="export JAVA_HOME=`/usr/libexec/java_home -v 17`; java -version"
+alias j8="export JAVA_HOME=`/usr/libexec/java_home -v 1.8`; java -version"
+alias j21="export JAVA_HOME=`/usr/libexec/java_home -v 21`; java -version"
+
 
 
 ## ALIASES ##
@@ -120,7 +140,9 @@ git() {
 }
 
 # When I run grep is VS Code, I want to output line numbers
+# but _only if_ I'm not grepping stdin
 grep() {
+#	if [ "$TERM_PROGRAM" = "vscode" -a [ -t 0 ] ]; then
 	if [ "$TERM_PROGRAM" = "vscode" ]; then
 		command grep -n "$@"
 	else
@@ -155,3 +177,21 @@ safeSource ${BREW_PATH}/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# function for setting terminal titles in OSX
+function title {
+  printf "\033]0;%s\007" "$1"
+}
+
+# Attempt to fix shell integration in VS Code (for cline/roo/et al)
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+
+# Include local configs
+safeSource ~/.zshrc.local
+
+# Docker exploration
+alias dive='docker run -ti --rm  -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/joschi/dive'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
