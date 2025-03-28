@@ -27,3 +27,9 @@
 	rebase = false
 [init]
 	defaultBranch = main
+[push]
+	default = current
+[rerere]
+	enabled = true
+[core]
+	precomposeunicode = true
