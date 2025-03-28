@@ -50,8 +50,8 @@ defaults write com.apple.dock autohide -bool true
 
 curl -sLO https://github.com/nordtheme/terminal-app/raw/develop/src/xml/Nord.terminal && \
   open Nord.terminal && \
-  rm Nord.termal &&  \
-  defaults write com.apple.terminal "Default Window Settings" -string "Nord" && \
+  rm Nord.terminal &&  \
+  defaults write com.apple.Terminal "Default Window Settings" -string "Nord" && \
   defaults write com.apple.Terminal "Startup Window Settings" -string "Nord"
 
 cd ~/Library/Fonts && {
