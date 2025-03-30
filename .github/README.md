@@ -28,7 +28,7 @@ git config --local status.showUntrackedFiles no
 - Run the macos installation script
 
 ```shell
-./macos
+./.macos
 ```
 
 - After creating/adding a new SSH key to GH, switch the origin and push any changes
