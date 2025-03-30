@@ -117,17 +117,18 @@ export PATH="$PATH:$HOME/Downloads/flutter/bin"
 # Oh no, more tool management
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+whence -p pyenv && eval "$(pyenv init -)"
 
 # env env env env
 export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+whence -p rbenv && eval "$(rbenv init -)"
 
 # JAVA env java env Java
-alias j17="export JAVA_HOME=`/usr/libexec/java_home -v 17`; java -version"
-alias j8="export JAVA_HOME=`/usr/libexec/java_home -v 1.8`; java -version"
-alias j21="export JAVA_HOME=`/usr/libexec/java_home -v 21`; java -version"
-
+if /usr/libexec/java_home &> /dev/null; then
+    alias j17="export JAVA_HOME=`/usr/libexec/java_home -v 17`; java -version"
+    alias j8="export JAVA_HOME=`/usr/libexec/java_home -v 1.8`; java -version"
+    alias j21="export JAVA_HOME=`/usr/libexec/java_home -v 21`; java -version"
+fi
 
 
 ## ALIASES ##
@@ -200,3 +201,8 @@ alias dive='docker run -ti --rm  -v /var/run/docker.sock:/var/run/docker.sock gh
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Volta, nvm ... fight!
+export VOLTA_HOME="$HOME/.volta"
+[[ -d $VOLTA_HOME/bin ]] && export PATH="$VOLTA_HOME/bin:$PATH"
+
