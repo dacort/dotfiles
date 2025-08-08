@@ -1,3 +1,7 @@
+if [[ -n "$ZSH_DEBUGRC" ]]; then
+  zmodload zsh/zprof
+fi
+
 (( ${+commands[direnv]} )) && emulate zsh -c "$(direnv export zsh)"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -33,7 +37,13 @@ if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
   BREW_PATH="$(brew --prefix)"
 fi
-autoload -Uz compinit && compinit
+
+# Speedy compinit
+autoload -Uz compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
 
 # I am k8s now
 if type kubectl &>/dev/null; then
@@ -197,12 +207,30 @@ safeSource ~/.zshrc.local
 
 # Docker exploration
 alias dive='docker run -ti --rm  -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/joschi/dive'
+dockersize() {
+    docker manifest inspect -v "$1" | jq -c 'if type == "array" then .[] else . end | select(.Descriptor.platform.architecture != 
+"unknown")' | jq -r '[ ( .Descriptor.platform | [ .os, .architecture, .variant, ."os.version" ] | del(..|nulls) | join("/") ), ( [ ( 
+.OCIManifest // .SchemaV2Manifest ).layers[].size ] | add ) ] | join(" ")' | awk '{
+        size = $2
+        units = "B"
+        if (size >= 1024) { size /= 1024; units = "K" }
+        if (size >= 1024) { size /= 1024; units = "M" }
+        if (size >= 1024) { size /= 1024; units = "G" }
+        if (size >= 1024) { size /= 1024; units = "T" }
+        printf "%-20s %6.2f%s\n", $1, size, units
+    }' | sort
+}
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Volta, nvm ... fight!
 export VOLTA_HOME="$HOME/.volta"
 [[ -d $VOLTA_HOME/bin ]] && export PATH="$VOLTA_HOME/bin:$PATH"
 
+if [[ -n "$ZSH_DEBUGRC" ]]; then
+  zprof
+fi
+
+alias cloc="echo UR looking for scc"
